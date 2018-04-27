@@ -77,7 +77,7 @@
         app:layout_constraintStart_toStartOf="@+id/editText_weight" />
 
     <EditText
-        android:id="@+id/editText_meters2"
+        android:id="@+id/editText_BMI"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:cursorVisible="false"
@@ -110,9 +110,9 @@
         android:layout_marginStart="8dp"
         android:text="m"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText_meters"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editText_height"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText_meters" />
+        app:layout_constraintStart_toEndOf="@+id/editText_height" />
 
     <ProgressBar
         android:id="@+id/progressBar_BMI"
@@ -126,7 +126,7 @@
         android:progress="36"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_meters2" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_BMI" />
 
     <TextView
         android:id="@+id/textView_overweight"
@@ -243,8 +243,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Save"
-        app:layout_constraintEnd_toEndOf="@+id/editText_meters"
-        app:layout_constraintStart_toStartOf="@+id/editText_meters"
-        app:layout_constraintTop_toBottomOf="@+id/editText_meters" />
+        app:layout_constraintEnd_toEndOf="@+id/editText_height"
+        app:layout_constraintStart_toStartOf="@+id/editText_height"
+        app:layout_constraintTop_toBottomOf="@+id/editText_height" />
 
 </android.support.constraint.ConstraintLayout>
