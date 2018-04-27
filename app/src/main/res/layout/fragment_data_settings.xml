@@ -66,7 +66,7 @@
         app:layout_constraintEnd_toStartOf="@+id/textView_kilograms" />
 
     <EditText
-        android:id="@+id/editText_meters"
+        android:id="@+id/editText_height"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:ems="10"
