@@ -1,6 +1,7 @@
 package com.log.activity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,10 @@ public class DataSettings extends Fragment {
     private TextView healthyweightText;
     private TextView overweightText;
 
+    private float mHeight = 0f;
+    private float mWeight = 0f;
+    private float mBMI = 0f;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,6 +42,8 @@ public class DataSettings extends Fragment {
         underweightText = view.findViewById(R.id.textView_underweight);
         healthyweightText = view.findViewById(R.id.textView_healthy_weight);
         overweightText = view.findViewById(R.id.textView_overweight);
+
+        loadData();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -87,5 +94,30 @@ public class DataSettings extends Fragment {
         underweightText.setTextColor(defaultColor);
         healthyweightText.setTextColor(defaultColor);
         overweightText.setTextColor(defaultColor);
+    }
+
+    private void saveData() {
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putFloat(getString(R.string.saved_height), mHeight);
+        editor.putFloat(getString(R.string.saved_width), mWeight);
+        editor.putFloat(getString(R.string.saved_bmi), mBMI);
+        editor.apply();
+    }
+
+    private void loadData() {
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        mHeight = sharedPref.getFloat(getString(R.string.saved_height), mHeight);
+        mWeight = sharedPref.getFloat(getString(R.string.saved_width), mWeight);
+        mBMI = sharedPref.getFloat(getString(R.string.saved_bmi), mBMI);
+
+        setLoadedData();
+        changeTextColorDependsUponBMI();
+    }
+
+    private void setLoadedData() {
+        heightEditText.setText(String.valueOf(mHeight));
+        weightEditText.setText(String.valueOf(mWeight));
+        setBMI();
     }
 }
