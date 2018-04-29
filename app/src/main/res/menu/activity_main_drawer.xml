@@ -17,9 +17,9 @@
             android:icon="@drawable/ic_menu_google_account"
             android:title="Google" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_data_settings"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="Data Settings" />
     </group>
 
     <item android:title="Communicate">

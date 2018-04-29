@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity
             fragment = new StatisticsFragment();
         } else if (id == R.id.nav_map) {
 
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_data_settings) {
+            fragment = new DataSettings();
         } else if (id == R.id.nav_google) {
             fragment = new GoogleSignInFragment();
         } else if (id == R.id.nav_share) {

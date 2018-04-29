@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DataSettings">
+
+    <TextView
+        android:id="@+id/textView_height"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:text="Height:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_weight"
+        app:layout_constraintTop_toBottomOf="@+id/textView_weight" />
+
+    <TextView
+        android:id="@+id/textView_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Name"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView_BMI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="BMI"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_height"
+        app:layout_constraintVertical_bias="0.32" />
+
+    <TextView
+        android:id="@+id/textView_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Weight:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_name" />
+
+    <EditText
+        android:id="@+id/editText_weight"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="80.5"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView_weight"
+        app:layout_constraintEnd_toStartOf="@+id/textView_kilograms" />
+
+    <EditText
+        android:id="@+id/editText_height"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="1.80"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView_height"
+        app:layout_constraintStart_toStartOf="@+id/editText_weight" />
+
+    <EditText
+        android:id="@+id/editText_BMI"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:focusable="false"
+        android:inputType="numberDecimal"
+        android:text="20.22"
+        android:textAlignment="center"
+        android:textColorLink="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_BMI" />
+
+    <TextView
+        android:id="@+id/textView_kilograms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="kg"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editText_weight"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_meters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="8dp"
+        android:text="m"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editText_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editText_height" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_BMI"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:max="56"
+        android:progress="36"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_BMI" />
+
+    <TextView
+        android:id="@+id/textView_overweight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:rotation="-90"
+        android:text="Overweight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_BMI" />
+
+    <TextView
+        android:id="@+id/textView_healthy_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:rotation="-90"
+        android:text="Healthy weight"
+        app:layout_constraintEnd_toStartOf="@+id/textView_overweight"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toEndOf="@+id/textView_underweight"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_BMI" />
+
+    <TextView
+        android:id="@+id/textView_underweight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="41dp"
+        android:rotation="-90"
+        android:text="Underweight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_BMI" />
+
+    <TextView
+        android:id="@+id/textView_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="16"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView_20"
+        app:layout_constraintStart_toStartOf="@+id/progressBar_BMI" />
+
+    <TextView
+        android:id="@+id/textView_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="20"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView_23"
+        app:layout_constraintEnd_toStartOf="@+id/textView_23"
+        app:layout_constraintStart_toEndOf="@+id/textView_16" />
+
+    <TextView
+        android:id="@+id/textView_26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="26"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView_30"
+        app:layout_constraintEnd_toStartOf="@+id/textView_30"
+        app:layout_constraintStart_toEndOf="@+id/textView_23" />
+
+    <TextView
+        android:id="@+id/textView_23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="23"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView_26"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_30"
+        android:layout_width="17dp"
+        android:layout_height="wrap_content"
+        android:text="30"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar_BMI"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar_BMI" />
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="4dp"
+        android:layout_height="96dp"
+        android:layout_marginEnd="8dp"
+        android:background="#a6666666"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.63"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_BMI" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="4dp"
+        android:layout_height="96dp"
+        android:layout_marginEnd="8dp"
+        android:background="#a6666666"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/divider1"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_BMI" />
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="@+id/editText_height"
+        app:layout_constraintStart_toStartOf="@+id/editText_height"
+        app:layout_constraintTop_toBottomOf="@+id/editText_height" />
+
+</android.support.constraint.ConstraintLayout>

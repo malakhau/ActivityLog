@@ -7,4 +7,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="saved_height">saved_height</string>
+    <string name="saved_width">saved_width</string>
+    <string name="saved_bmi">saved_bmi</string>
 </resources>
