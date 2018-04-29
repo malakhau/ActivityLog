@@ -63,28 +63,36 @@ public class DataSettings extends Fragment {
     }
 
     private void handleSaveButtonClick() {
-        float height = Float.parseFloat(heightEditText.getText().toString());
-        float weight = Float.parseFloat(weightEditText.getText().toString());
+        mHeight = Float.parseFloat(heightEditText.getText().toString());
+        mWeight = Float.parseFloat(weightEditText.getText().toString());
 
-        float bmi = weight / (height * height);
+        float bmi = mWeight / (mHeight * mHeight);
+        mBMI = Math.round(bmi * 100.0f) / 100.0f;
 
-        BMIeditText.setText(String.valueOf(Math.round(bmi * 100) / 100));
+        saveData();
+
+        setBMI();
+        changeTextColorDependsUponBMI();
+    }
+
+    private void setBMI()
+    {
+        BMIeditText.setText(String.valueOf(mBMI));
 
         final int minValueOfBMI = 16;
         final int multiplierProgressBar = 4;
-        int bmiProgressBar = Math.round((bmi - minValueOfBMI) * multiplierProgressBar);
+        int bmiProgressBar = Math.round((mBMI - minValueOfBMI) * multiplierProgressBar);
         BMIbar.setProgress(bmiProgressBar);
-        changeTextColorDependsUponBMI(bmi);
     }
 
-    private void changeTextColorDependsUponBMI(float aBMI) {
+    private void changeTextColorDependsUponBMI() {
         resetBMItextCollorToDefault();
 
-        if (aBMI < 18.5) {
+        if (mBMI < 18.5) {
             underweightText.setTextColor(Color.RED);
-        } else if (aBMI >= 18.5 && aBMI <= 25.0) {
+        } else if (mBMI >= 18.5 && mBMI <= 25.0) {
             healthyweightText.setTextColor(Color.GREEN);
-        } else if (aBMI > 25.0) {
+        } else if (mBMI > 25.0) {
             overweightText.setTextColor(Color.RED);
         }
     }
