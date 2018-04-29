@@ -1,11 +1,13 @@
 package com.log.activity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -32,17 +34,26 @@ public class DataSettings extends Fragment {
         weightEditText = view.findViewById(R.id.editText_weight);
         BMIeditText = view.findViewById(R.id.editText_BMI);
         BMIbar = view.findViewById(R.id.progressBar_BMI);
+        underweightText = view.findViewById(R.id.textView_underweight);
+        healthyweightText = view.findViewById(R.id.textView_healthy_weight);
+        overweightText = view.findViewById(R.id.textView_overweight);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                handleSaveButtonClick();
+                handleSaveButtonClick(v);
             }
         });
 
         return view;
     }
 
-    private void handleSaveButtonClick() {
+    private void handleSaveButtonClick(View aView) {
+        //Hide keyboard after click button
+        if (aView != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(aView.getWindowToken(), 0);
+        }
+
         float height = Float.parseFloat(heightEditText.getText().toString());
         float weight = Float.parseFloat(weightEditText.getText().toString());
 
