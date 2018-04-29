@@ -50,8 +50,8 @@ public class DataSettings extends Fragment {
 
         BMIeditText.setText(String.valueOf(bmi));
 
-        int minValueOfBMI = 16;
-        int multiplierProgressBar = 4;
+        final int minValueOfBMI = 16;
+        final int multiplierProgressBar = 4;
         int bmiProgressBar = Math.round((bmi - minValueOfBMI) * multiplierProgressBar);
         BMIbar.setProgress(bmiProgressBar);
         changeTextColorDependsUponBMI(bmi);
