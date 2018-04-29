@@ -61,7 +61,7 @@ public class DataSettings extends Fragment {
 
         float bmi = weight / (height * height);
 
-        BMIeditText.setText(String.valueOf(bmi));
+        BMIeditText.setText(String.valueOf(Math.round(bmi * 100) / 100));
 
         final int minValueOfBMI = 16;
         final int multiplierProgressBar = 4;
