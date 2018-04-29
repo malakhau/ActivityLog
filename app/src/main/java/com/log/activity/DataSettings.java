@@ -40,20 +40,22 @@ public class DataSettings extends Fragment {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                handleSaveButtonClick(v);
+                hideKeyboard(v);
+                handleSaveButtonClick();
             }
         });
 
         return view;
     }
 
-    private void handleSaveButtonClick(View aView) {
-        //Hide keyboard after click button
+    private void hideKeyboard(View aView) {
         if (aView != null) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(aView.getWindowToken(), 0);
         }
+    }
 
+    private void handleSaveButtonClick() {
         float height = Float.parseFloat(heightEditText.getText().toString());
         float weight = Float.parseFloat(weightEditText.getText().toString());
 
