@@ -15,19 +15,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class BlankFragment extends Fragment implements OnMapReadyCallback{
+public class MapsActivityFragment extends Fragment implements OnMapReadyCallback{
 
     SupportMapFragment mapFragment;
     private GoogleMap mMap;
 
-    public BlankFragment() {
+    public MapsActivityFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_blank,container,false);
+        View view = inflater.inflate(R.layout.maps_activity_fragment,container,false);
         mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if(mapFragment == null)
         {
