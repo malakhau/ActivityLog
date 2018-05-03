@@ -84,7 +84,7 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
 
         if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ////Ask for permission
-            ActivityCompat.requestPermissions((Activity) getActivity().getApplicationContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
         }else{
             ///we have permission so we can check the location
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 10, locationListener);

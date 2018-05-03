@@ -10,8 +10,4 @@
     <string name="saved_height">saved_height</string>
     <string name="saved_width">saved_width</string>
     <string name="saved_bmi">saved_bmi</string>
-    <string name="title_activity_maps">Map</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
