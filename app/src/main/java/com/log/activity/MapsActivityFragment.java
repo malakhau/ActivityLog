@@ -61,9 +61,13 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
             public void onLocationChanged(Location location) {
 
                 LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-                mMap.clear();
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Your current location"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                if (mMap != null){
+                    mMap.clear();
+                    mMap.addMarker(new MarkerOptions().position(latLng).title("Your current location"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                    //mMap.addPolyline();
+                }
+
             }
 
             @Override
