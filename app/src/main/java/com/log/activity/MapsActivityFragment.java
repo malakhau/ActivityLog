@@ -28,7 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivityFragment extends Fragment implements OnMapReadyCallback{
+public class MapsActivityFragment extends Fragment implements OnMapReadyCallback {
 
     SupportMapFragment mapFragment;
     private GoogleMap mMap;
@@ -63,15 +63,12 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
-                LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-                if (mMap != null){
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                if (mMap != null) {
                     mMap.clear();
                     mMap.addMarker(new MarkerOptions().position(latLng).title("Your current location"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
-                    //mMap.addPolyline();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                 }
-
             }
 
             @Override
@@ -90,10 +87,10 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
             }
         };
 
-        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ////Ask for permission
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
-        }else{
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
             ///we have permission so we can check the location
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 10, locationListener);
         }
@@ -106,16 +103,14 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        View view = inflater.inflate(R.layout.maps_activity_fragment,container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.maps_activity_fragment, container, false);
         mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if(mapFragment == null)
-        {
+        if (mapFragment == null) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             mapFragment = SupportMapFragment.newInstance();
-            fragmentTransaction.replace(R.id.map,mapFragment).commit();
+            fragmentTransaction.replace(R.id.map, mapFragment).commit();
         }
         mapFragment.getMapAsync(this);
         return view;
