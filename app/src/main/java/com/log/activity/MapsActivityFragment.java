@@ -1,13 +1,16 @@
 package com.log.activity;
 
 import android.Manifest;
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -25,7 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivityFragment extends Fragment implements OnMapReadyCallback{
+public class MapsActivityFragment extends Fragment implements OnMapReadyCallback {
 
     SupportMapFragment mapFragment;
     private GoogleMap mMap;
@@ -39,10 +42,11 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-
-            if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+            if (ActivityCompat.checkSelfPermission(
+                    getActivity().getApplicationContext(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED)
+            {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 10, locationListener);
             }
         }
@@ -56,18 +60,16 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         locationManager = (LocationManager) this.getActivity().getSystemService(Context.LOCATION_SERVICE);
+        isLocationEnabled();
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
-                LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-                if (mMap != null){
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                if (mMap != null) {
                     mMap.clear();
                     mMap.addMarker(new MarkerOptions().position(latLng).title("Your current location"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
-                    //mMap.addPolyline();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                 }
-
             }
 
             @Override
@@ -86,27 +88,30 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
             }
         };
 
-        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ////Ask for permission
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
-        }else{
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
             ///we have permission so we can check the location
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 10, locationListener);
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        isLocationEnabled();
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        View view = inflater.inflate(R.layout.maps_activity_fragment,container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.maps_activity_fragment, container, false);
         mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if(mapFragment == null)
-        {
+        if (mapFragment == null) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             mapFragment = SupportMapFragment.newInstance();
-            fragmentTransaction.replace(R.id.map,mapFragment).commit();
+            fragmentTransaction.replace(R.id.map, mapFragment).commit();
         }
         mapFragment.getMapAsync(this);
         return view;
@@ -115,5 +120,26 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+    }
+
+    private void isLocationEnabled() {
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            AlertDialog.Builder alertDialog=new AlertDialog.Builder(getContext());
+            alertDialog.setTitle("Enable Location");
+            alertDialog.setMessage("Your locations setting is not enabled. Please enabled it in settings menu.");
+            alertDialog.setPositiveButton("Location Settings", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which){
+                    Intent intent=new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(intent);
+                }
+            });
+            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which){
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alert=alertDialog.create();
+            alert.show();
+        }
     }
 }
