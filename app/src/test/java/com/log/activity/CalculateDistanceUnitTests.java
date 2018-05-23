@@ -1,12 +1,11 @@
 package com.log.activity;
 
-import android.graphics.PointF;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -15,26 +14,19 @@ import static junit.framework.Assert.assertEquals;
 public class CalculateDistanceUnitTests {
 
     private LocationRecorder lr;
-    private List<FakePointF> locations;
-
-    public static class FakePointF extends PointF {
-        FakePointF(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
+    private List<Point> locations;
 
     @Before
     public void setUp() {
         lr = new LocationRecorder();
         locations = new ArrayList<>(
                 Arrays.asList(
-                        new FakePointF(1f, 2f),
-                        new FakePointF(1f, 5f),
-                        new FakePointF(0f, 4f),
-                        new FakePointF(4f, 2f),
-                        new FakePointF(-2f, -2f),
-                        new FakePointF(2f, 2f)
+                        new Point(1f, 2f, new Date()),
+                        new Point(1f, 5f, new Date()),
+                        new Point(0f, 4f, new Date()),
+                        new Point(4f, 2f, new Date()),
+                        new Point(-2f, -2f, new Date()),
+                        new Point(2f, 2f, new Date())
                 )
         );
     }
@@ -48,6 +40,6 @@ public class CalculateDistanceUnitTests {
 
     @Test
     public void calculateEntireDistance_isCorrect() {
-        assertEquals(21.754306317f, lr.entireDistance(new ArrayList<PointF>(locations)));
+        assertEquals(21.754306317f, lr.entireDistance(locations));
     }
 }
