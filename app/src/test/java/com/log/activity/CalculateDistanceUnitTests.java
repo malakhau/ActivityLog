@@ -21,25 +21,26 @@ public class CalculateDistanceUnitTests {
         lr = new LocationRecorder();
         locations = new ArrayList<>(
                 Arrays.asList(
-                        new Point(1f, 2f, new Date()),
-                        new Point(1f, 5f, new Date()),
-                        new Point(0f, 4f, new Date()),
-                        new Point(4f, 2f, new Date()),
-                        new Point(-2f, -2f, new Date()),
-                        new Point(2f, 2f, new Date())
+                        new Point(0.1f, 0.2f, new Date(1508484583200L)),
+                        new Point(0.1f, 0.5f, new Date(1508484583200L)),
+                        new Point(0.0f, 0.4f, new Date(1508484583200L)),
+                        new Point(0.4f, 0.2f, new Date(1508484583200L)),
+                        new Point(-0.2f, -0.2f, new Date(1508484583200L)),
+                        new Point(0.2f, 0.2f, new Date(1508484583200L))
                 )
         );
     }
 
     @Test
     public void calculateDistanceBetweenTwoPoints_isCorrect() {
-        assertEquals(3.0f, lr.distanceBetweenTwoPoints(locations.get(0), locations.get(1)));
-        assertEquals(4.472135955f, lr.distanceBetweenTwoPoints(locations.get(2), locations.get(3)));
-        assertEquals(5.656854249f, lr.distanceBetweenTwoPoints(locations.get(4), locations.get(5)));
+        assertEquals(21900f, lr.distanceBetweenTwoPoints(locations.get(0), locations.get(1)));
+        assertEquals(32646.592f, lr.distanceBetweenTwoPoints(locations.get(2), locations.get(3)));
+        assertEquals(41295.04f, lr.distanceBetweenTwoPoints(locations.get(4), locations.get(5)));
     }
 
     @Test
     public void calculateEntireDistance_isCorrect() {
-        assertEquals(21.754306317f, lr.entireDistance(locations));
+        lr.updateLocationAndTimeList(locations);
+        assertEquals(158806.44f, lr.calculateEntireDistance());
     }
 }
