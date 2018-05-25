@@ -24,13 +24,13 @@ public class StatisticsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        startButton = getActivity().findViewById(R.id.startTracking);
-        stopButton = getActivity().findViewById(R.id.stopTracking);
-
-        if(!runtime_permissions()){}
-            enable_buttons();
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
+
+        startButton = view.findViewById(R.id.startTracking);
+        stopButton = view.findViewById(R.id.stopTracking);
+
+        if(!runtime_permissions())
+            enable_buttons();
 
         return view;
     }
