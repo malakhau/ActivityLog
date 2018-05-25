@@ -70,7 +70,7 @@ public class LocationRecorder {
     }
 
     float convertVelocityMetersPerSecundToKiloMetersPerHour(float velocityMetersPerSecond) {
-        return velocityMetersPerSecond * (10.0f / 36.0f);
+        return velocityMetersPerSecond * (36.0f / 10.0f);
     }
 
     float getEntireDistanceInMeters() {
