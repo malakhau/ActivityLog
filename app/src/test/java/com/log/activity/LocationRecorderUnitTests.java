@@ -11,7 +11,7 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 
 
-public class CalculateDistanceUnitTests {
+public class LocationRecorderUnitTests {
 
     private LocationRecorder lr;
     private List<Point> locations;
