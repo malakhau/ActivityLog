@@ -54,18 +54,18 @@ public class LocationRecorder {
     void calculateAverageVelocityAndEntireDistance() {
         mEntireDistanceInMeters = 0f;
         mAvrageVelocityInMetersPerSecund = 0f;
-        float sumVelocity = 0f;
-        for(int i=0; i+1 < mPoints.size(); i++) {
-            sumVelocity += calculateVelocityBetweenTwoPoints(mPoints.get(i), mPoints.get(i+1));
-            mEntireDistanceInMeters += distanceBetweenTwoPoints(mPoints.get(i), mPoints.get(i+1));
+        for (int i = 0; i + 1 < mPoints.size(); i++) {
+            mEntireDistanceInMeters += distanceBetweenTwoPoints(mPoints.get(i), mPoints.get(i + 1));
         }
-        mAvrageVelocityInMetersPerSecund = sumVelocity / mEntireDistanceInMeters;
+        long timeBetweenStartAndEndInMilliSeconds = timeBetweenTwoPoints(
+                mPoints.get(0), mPoints.get(mPoints.size() - 1));
+        mAvrageVelocityInMetersPerSecund = mEntireDistanceInMeters / (timeBetweenStartAndEndInMilliSeconds / 1000.0f);
     }
 
     float calculateVelocityBetweenTwoPoints(Point point1, Point point2) {
         float distanceInMeters = distanceBetweenTwoPoints(point1, point2);
         long timeInMilliSeconds = timeBetweenTwoPoints(point1, point2);
-        float velocityMetersPerSecond = distanceInMeters / (timeInMilliSeconds / 1000);
+        float velocityMetersPerSecond = distanceInMeters / (timeInMilliSeconds / 1000.0f);
         return velocityMetersPerSecond;
     }
 
