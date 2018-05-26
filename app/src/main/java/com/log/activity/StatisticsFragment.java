@@ -25,7 +25,6 @@ public class StatisticsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
-
         startButton = view.findViewById(R.id.startTracking);
         stopButton = view.findViewById(R.id.stopTracking);
 
@@ -37,13 +36,13 @@ public class StatisticsFragment extends Fragment {
 
     private void enable_buttons() {
 
-        stopButton.setEnabled(false);
-
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i =new Intent(getContext().getApplicationContext(),GPS_Service.class);
+
+                Intent i = new Intent(getContext().getApplicationContext(), GPS_Service.class);
                 getActivity().startService(i);
+                getLocation();
                 startButton.setEnabled(false);
                 stopButton.setEnabled(true);
             }
@@ -55,6 +54,7 @@ public class StatisticsFragment extends Fragment {
 
                 Intent i = new Intent(getContext().getApplicationContext(),GPS_Service.class);
                 getActivity().stopService(i);
+                getActivity().unregisterReceiver(broadcastReceiver);
                 stopButton.setEnabled(false);
                 startButton.setEnabled(true);
             }
@@ -72,6 +72,22 @@ public class StatisticsFragment extends Fragment {
         return false;
     }
 
+    public void getLocation(){
+
+        if(broadcastReceiver == null){
+            broadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+
+                    Log.i("location","\n" +intent.getExtras().get("coordinates"));
+
+                }
+            };
+        }
+        getContext().registerReceiver(broadcastReceiver,new IntentFilter("location_update"));
+
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -86,27 +102,9 @@ public class StatisticsFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if(broadcastReceiver == null){
-            broadcastReceiver = new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-
-                    Log.i("location","\n" +intent.getExtras().get("coordinates"));
-
-                }
-            };
-        }
-        getContext().registerReceiver(broadcastReceiver,new IntentFilter("location_update"));
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
-        if(broadcastReceiver != null){
-            getContext().unregisterReceiver(broadcastReceiver);
-        }
+        getActivity().unregisterReceiver(broadcastReceiver);
     }
 
 }
