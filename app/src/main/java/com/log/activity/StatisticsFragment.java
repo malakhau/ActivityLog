@@ -27,6 +27,7 @@ public class StatisticsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         startButton = view.findViewById(R.id.startTracking);
         stopButton = view.findViewById(R.id.stopTracking);
+        stopButton.setEnabled(false);
 
         if(!runtime_permissions())
             enable_buttons();
@@ -104,7 +105,7 @@ public class StatisticsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().unregisterReceiver(broadcastReceiver);
+        getContext().unregisterReceiver(broadcastReceiver);
     }
 
 }
