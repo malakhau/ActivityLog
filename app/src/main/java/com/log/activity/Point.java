@@ -1,14 +1,12 @@
 package com.log.activity;
 
 
-import java.util.Date;
-
 public class Point {
     public float x;
     public float y;
-    public Date currentTime;
+    public long currentTime;
 
-    Point(float x, float y, Date currentTime) {
+    Point(float x, float y, long currentTime) {
         this.x = x;
         this.y = y;
         this.currentTime = currentTime;

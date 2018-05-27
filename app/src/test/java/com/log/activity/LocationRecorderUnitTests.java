@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -21,12 +20,12 @@ public class LocationRecorderUnitTests {
         lr = new LocationRecorder();
         points = new ArrayList<>(
                 Arrays.asList(
-                        new Point(0.1f, 0.2f, new Date(1508484583200L)),
-                        new Point(0.1f, 0.5f, new Date(1508484590000L)),
-                        new Point(0.0f, 0.4f, new Date(1508484678000L)),
-                        new Point(0.4f, 0.2f, new Date(1508485586540L)),
-                        new Point(-0.2f, -0.2f, new Date(1508486586540L)),
-                        new Point(0.2f, 0.2f, new Date(1508484912345L))
+                        new Point(0.1f, 0.2f, 1508484583200L),
+                        new Point(0.1f, 0.5f, 1508484590000L),
+                        new Point(0.0f, 0.4f, 1508484678000L),
+                        new Point(0.4f, 0.2f, 1508485586540L),
+                        new Point(-0.2f, -0.2f, 1508486586540L),
+                        new Point(0.2f, 0.2f, 1508484912345L)
                 )
         );
     }

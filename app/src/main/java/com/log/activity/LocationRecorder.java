@@ -38,7 +38,7 @@ public class LocationRecorder {
     }
 
     long timeBetweenTwoPoints(Point point1, Point point2) {
-        return Math.abs(point2.currentTime.getTime() - point1.currentTime.getTime());
+        return Math.abs(point2.currentTime - point1.currentTime);
     }
 
     float calculateAverageVelocityOnEntireDistance() {
