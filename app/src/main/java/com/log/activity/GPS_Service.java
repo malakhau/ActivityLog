@@ -8,14 +8,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 
-/**
- * Created by luka on 25.05.18.
- */
+import java.util.Random;
 
 public class GPS_Service extends Service {
 
@@ -29,15 +28,31 @@ public class GPS_Service extends Service {
     @Override
     public void onCreate(){
 
+        final Handler handler = new Handler();
+        final int delay = 1000; //milliseconds
+        final Random random = new Random();
+
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                Intent intent = new Intent("location_update");
+                Bundle extras = new Bundle();
+                extras.putFloat("longitude", (random.nextFloat() / 10000.0f));
+                extras.putFloat("latitude", (random.nextFloat() / 10000.0f));
+                intent.putExtras(extras);
+                sendBroadcast(intent);
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
+
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                Intent intent = new Intent("location_update");
-                Bundle extras = new Bundle();
-                extras.putFloat("longitude", (float)location.getLongitude());
-                extras.putFloat("latitude", (float)location.getLatitude());
-                intent.putExtras(extras);
-                sendBroadcast(intent);
+//                Intent intent = new Intent("location_update");
+//                Bundle extras = new Bundle();
+//                extras.putFloat("longitude", (float)location.getLongitude());
+//                extras.putFloat("latitude", (float)location.getLatitude());
+//                intent.putExtras(extras);
+//                sendBroadcast(intent);
             }
 
             @Override
