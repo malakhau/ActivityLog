@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
@@ -28,15 +29,23 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -124,6 +133,13 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        List<LatLng> point = new ArrayList<>();
+        point.add(new LatLng(51.1020157,17.0381575));
+        point.add(new LatLng(51.1014539,17.038947));
+        point.add(new LatLng(51.1019203,17.0397752));
+
+        drawPolyLineOnMap(point);
+
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -344,5 +360,16 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
             AlertDialog alert=alertDialog.create();
             alert.show();
         }
+    }
+
+    // Draw polyline on map
+    public void drawPolyLineOnMap(List<LatLng> list) {
+        PolylineOptions polyOptions = new PolylineOptions();
+        polyOptions.color(Color.RED);
+        polyOptions.width(5);
+        polyOptions.addAll(list);
+
+        mGoogleMap.clear();
+        mGoogleMap.addPolyline(polyOptions);
     }
 }

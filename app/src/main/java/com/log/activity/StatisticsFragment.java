@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,7 +121,9 @@ public class StatisticsFragment extends Fragment {
                     Bundle extras = intent.getExtras();
                     float longitude = extras.getFloat("longitude");
                     float latitude = extras.getFloat("latitude");
+                    Log.i("loc", String.valueOf(latitude));
                     if (latitude != 0.0f && longitude != 0.0f) {
+                        Log.i("loc", String.valueOf(latitude));
                         Point p = new Point(longitude, latitude, Calendar.getInstance().getTime().getTime());
                         MainActivity.locationRecorder.addLocationAndTime(p);
                         calculateAndSetStatistics();
