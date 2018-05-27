@@ -1,6 +1,5 @@
 package com.log.activity;
 
-import android.*;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -34,7 +33,8 @@ public class GPS_Service extends Service {
             @Override
             public void onLocationChanged(Location location) {
                 Intent i = new Intent("location_update");
-                i.putExtra("coordinates", location.getLongitude() + " " + location.getLatitude());
+                i.putExtra("longitude", location.getLongitude());
+                i.putExtra("latitude", location.getLatitude());
                 sendBroadcast(i);
             }
 

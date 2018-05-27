@@ -80,7 +80,9 @@ public class StatisticsFragment extends Fragment {
                 @Override
                 public void onReceive(Context context, Intent intent) {
 
-                    Log.i("location","\n" +intent.getExtras().get("coordinates"));
+                    float longitude = (float)intent.getExtras().get("longitude");
+                    float latitude = (float)intent.getExtras().get("latitude");
+
 
                 }
             };
