@@ -8,44 +8,37 @@
 
 
     <TextView
-        android:id="@+id/velocityTextDistance"
+        android:id="@+id/distanceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
         android:text="0.000"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewKmPerH" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <TextView
         android:id="@+id/velocityTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="0.00"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timerTextView" />
-
-    <item
-        android:id="@+id/nav_statistics"
-        android:icon="@drawable/ic_menu_statistics"
-        android:title="Statistics" />
 
     <Button
         android:id="@+id/startTracking"
         android:layout_width="wrap_content"
         android:layout_height="63dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="64dp"
         android:layout_marginStart="32dp"
         android:text="Start Tracking"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,7 +52,7 @@
         android:id="@+id/stopTracking"
         android:layout_width="wrap_content"
         android:layout_height="65dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="64dp"
         android:layout_marginEnd="32dp"
         android:text="Stop Tracking"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -73,38 +66,37 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
         android:text="00:00:00"
+        android:textColor="@android:color/black"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewTimer"
         tools:textColor="@android:color/black" />
 
     <ImageView
         android:id="@+id/imageViewTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/ic_timer_black_32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/timerTextView"
-        app:layout_constraintEnd_toStartOf="@+id/timerTextView"
-        app:layout_constraintTop_toTopOf="@+id/timerTextView" />
+        app:layout_constraintEnd_toEndOf="@+id/timerTextView"
+        app:layout_constraintStart_toStartOf="@+id/timerTextView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/CalBurnedtextView"
+        android:id="@+id/calBurnedtextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="0.00"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timerTextView" />
 
@@ -116,33 +108,33 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_cal_burned_black_26dp"
-        app:layout_constraintBottom_toBottomOf="@+id/CalBurnedtextView"
-        app:layout_constraintEnd_toStartOf="@+id/CalBurnedtextView"
-        app:layout_constraintTop_toTopOf="@+id/CalBurnedtextView" />
+        app:layout_constraintBottom_toBottomOf="@+id/calBurnedtextView"
+        app:layout_constraintEnd_toStartOf="@+id/calBurnedtextView"
+        app:layout_constraintTop_toTopOf="@+id/calBurnedtextView" />
 
     <ImageView
         android:id="@+id/imageViewVelocity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_directions_run_black_26dp"
         app:layout_constraintBottom_toBottomOf="@+id/velocityTextView"
-        app:layout_constraintEnd_toStartOf="@+id/velocityTextView"
+        app:layout_constraintStart_toEndOf="@+id/velocityTextView"
         app:layout_constraintTop_toTopOf="@+id/velocityTextView" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/ic_flag_black_26dp"
-        app:layout_constraintBottom_toBottomOf="@+id/velocityTextDistance"
-        app:layout_constraintEnd_toStartOf="@+id/velocityTextDistance"
-        app:layout_constraintTop_toTopOf="@+id/velocityTextDistance" />
+        app:layout_constraintEnd_toEndOf="@+id/distanceTextView"
+        app:layout_constraintStart_toStartOf="@+id/distanceTextView"
+        app:layout_constraintTop_toBottomOf="@+id/textViewKmPerH" />
 
     <TextView
         android:id="@+id/textViewkcal"
@@ -151,9 +143,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="kcal"
-        app:layout_constraintEnd_toEndOf="@+id/CalBurnedtextView"
-        app:layout_constraintStart_toStartOf="@+id/CalBurnedtextView"
-        app:layout_constraintTop_toBottomOf="@+id/CalBurnedtextView" />
+        app:layout_constraintEnd_toEndOf="@+id/calBurnedtextView"
+        app:layout_constraintStart_toStartOf="@+id/calBurnedtextView"
+        app:layout_constraintTop_toBottomOf="@+id/calBurnedtextView" />
 
     <TextView
         android:id="@+id/textViewKmPerH"
@@ -171,8 +163,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="km"
-        app:layout_constraintEnd_toEndOf="@+id/velocityTextDistance"
-        app:layout_constraintStart_toStartOf="@+id/velocityTextDistance"
-        app:layout_constraintTop_toBottomOf="@+id/velocityTextDistance" />
+        app:layout_constraintEnd_toEndOf="@+id/distanceTextView"
+        app:layout_constraintStart_toStartOf="@+id/distanceTextView"
+        app:layout_constraintTop_toBottomOf="@+id/distanceTextView" />
 
 </android.support.constraint.ConstraintLayout>

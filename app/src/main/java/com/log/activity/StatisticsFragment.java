@@ -4,30 +4,47 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.DecimalFormat;
+import java.util.Calendar;
 
 public class StatisticsFragment extends Fragment {
 
-    public Button startButton, stopButton;
-    public BroadcastReceiver broadcastReceiver;
+    private Button startButton, stopButton;
+    private TextView timerTextView, caloriesTextView, velocityTextView, distanceTextView;
+    private BroadcastReceiver broadcastReceiver;
+    private LocationRecorder locationRecorder;
+    private SharedPreferences sharedPref;
+
+    private float mWeight = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
+        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+
         startButton = view.findViewById(R.id.startTracking);
         stopButton = view.findViewById(R.id.stopTracking);
         stopButton.setEnabled(false);
+
+        timerTextView = view.findViewById(R.id.timerTextView);
+        caloriesTextView = view.findViewById(R.id.calBurnedtextView);
+        velocityTextView = view.findViewById(R.id.velocityTextView);
+        distanceTextView = view.findViewById(R.id.distanceTextView);
 
         if(!runtime_permissions())
             enable_buttons();
@@ -40,12 +57,27 @@ public class StatisticsFragment extends Fragment {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent i = new Intent(getContext().getApplicationContext(), GPS_Service.class);
                 getActivity().startService(i);
                 getLocation();
+
                 startButton.setEnabled(false);
                 stopButton.setEnabled(true);
+
+                locationRecorder = new LocationRecorder();
+                timerTextView.setText("00:00:00");
+                caloriesTextView.setText("0.00");
+                velocityTextView.setText("0.00");
+                distanceTextView.setText("0.000");
+
+                mWeight = sharedPref.getFloat(getString(R.string.saved_width), mWeight);
+                if (mWeight == 0) {
+                    Toast.makeText(
+                            getContext(),
+                            "Set your weight in options to get information about calories burned.",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
             }
         });
 
@@ -79,14 +111,35 @@ public class StatisticsFragment extends Fragment {
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-
-                    Log.i("location","\n" +intent.getExtras().get("coordinates"));
-
+                    Bundle extras = intent.getExtras();
+                    float longitude = extras.getFloat("longitude");
+                    float latitude = extras.getFloat("latitude");
+                    Point p = new Point(longitude, latitude, Calendar.getInstance().getTime().getTime());
+                    locationRecorder.addLocationAndTime(p);
+                    calculateAndSetStatistics();
                 }
             };
         }
-        getContext().registerReceiver(broadcastReceiver,new IntentFilter("location_update"));
+        getContext().registerReceiver(broadcastReceiver, new IntentFilter("location_update"));
+    }
 
+    private void calculateAndSetStatistics() {
+        locationRecorder.calculateAverageVelocityAndEntireDistance();
+        float velocityKmPerH = locationRecorder.convertVelocityMetersPerSecundToKiloMetersPerHour(
+                locationRecorder.getAvrageVelocityInMetersPerSecund());
+        float entireDistanceInKm = locationRecorder.getEntireDistanceInMeters() / 1000.0f;
+        long timeInMilliSeconds = locationRecorder.calculateTimeBetweenStartAndEndInMilliSeconds();
+        long second = (timeInMilliSeconds / 1000) % 60;
+        long minute = (timeInMilliSeconds / (1000 * 60)) % 60;
+        float hourDecimal = (timeInMilliSeconds / (1000.0f * 60.0f * 60.0f)) / 24.0f;
+        int hour = (int)hourDecimal;
+        float kiloCaloriesBurned = CaloriesCalculator.calculateBurnedKiloCalories(
+                velocityKmPerH, mWeight, hourDecimal);
+        String time = String.format("%02d:%02d:%02d", hour, minute, second);
+        timerTextView.setText(time);
+        caloriesTextView.setText(new DecimalFormat("####.##").format(kiloCaloriesBurned));
+        velocityTextView.setText(new DecimalFormat("###.##").format(velocityKmPerH));
+        distanceTextView.setText(new DecimalFormat("###.###").format(entireDistanceInKm));
     }
 
 
@@ -105,7 +158,10 @@ public class StatisticsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getContext().unregisterReceiver(broadcastReceiver);
+        if(broadcastReceiver != null)
+        {
+            getContext().unregisterReceiver(broadcastReceiver);
+        }
     }
 
 }
