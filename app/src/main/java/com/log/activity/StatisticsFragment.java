@@ -26,7 +26,6 @@ public class StatisticsFragment extends Fragment {
     private Button startButton, stopButton;
     private TextView timerTextView, caloriesTextView, velocityTextView, distanceTextView;
     private BroadcastReceiver broadcastReceiver;
-    private LocationRecorder locationRecorder;
     private SharedPreferences sharedPref;
 
     private float mWeight = 0;
@@ -49,6 +48,10 @@ public class StatisticsFragment extends Fragment {
         if(!runtime_permissions())
             enable_buttons();
 
+        if(MainActivity.locationRecorder != null) {
+            calculateAndSetStatistics();
+        }
+
         return view;
     }
 
@@ -64,7 +67,7 @@ public class StatisticsFragment extends Fragment {
                 startButton.setEnabled(false);
                 stopButton.setEnabled(true);
 
-                locationRecorder = new LocationRecorder();
+                MainActivity.locationRecorder = new LocationRecorder();
                 timerTextView.setText("00:00:00");
                 caloriesTextView.setText("0.00");
                 velocityTextView.setText("0.00");
@@ -87,7 +90,10 @@ public class StatisticsFragment extends Fragment {
 
                 Intent i = new Intent(getContext().getApplicationContext(),GPS_Service.class);
                 getActivity().stopService(i);
-                getActivity().unregisterReceiver(broadcastReceiver);
+                if (broadcastReceiver != null) {
+                    getContext().unregisterReceiver(broadcastReceiver);
+                    broadcastReceiver=null;
+                }
                 stopButton.setEnabled(false);
                 startButton.setEnabled(true);
             }
@@ -115,7 +121,7 @@ public class StatisticsFragment extends Fragment {
                     float longitude = extras.getFloat("longitude");
                     float latitude = extras.getFloat("latitude");
                     Point p = new Point(longitude, latitude, Calendar.getInstance().getTime().getTime());
-                    locationRecorder.addLocationAndTime(p);
+                    MainActivity.locationRecorder.addLocationAndTime(p);
                     calculateAndSetStatistics();
                 }
             };
@@ -124,11 +130,11 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void calculateAndSetStatistics() {
-        locationRecorder.calculateAverageVelocityAndEntireDistance();
-        float velocityKmPerH = locationRecorder.convertVelocityMetersPerSecundToKiloMetersPerHour(
-                locationRecorder.getAvrageVelocityInMetersPerSecund());
-        float entireDistanceInKm = locationRecorder.getEntireDistanceInMeters() / 1000.0f;
-        long timeInMilliSeconds = locationRecorder.calculateTimeBetweenStartAndEndInMilliSeconds();
+        MainActivity.locationRecorder.calculateAverageVelocityAndEntireDistance();
+        float velocityKmPerH = MainActivity.locationRecorder.convertVelocityMetersPerSecundToKiloMetersPerHour(
+                MainActivity.locationRecorder.getAvrageVelocityInMetersPerSecund());
+        float entireDistanceInKm = MainActivity.locationRecorder.getEntireDistanceInMeters() / 1000.0f;
+        long timeInMilliSeconds = MainActivity.locationRecorder.calculateTimeBetweenStartAndEndInMilliSeconds();
         long second = (timeInMilliSeconds / 1000) % 60;
         long minute = (timeInMilliSeconds / (1000 * 60)) % 60;
         float hourDecimal = (timeInMilliSeconds / (1000.0f * 60.0f * 60.0f)) / 24.0f;
@@ -161,6 +167,7 @@ public class StatisticsFragment extends Fragment {
         if(broadcastReceiver != null)
         {
             getContext().unregisterReceiver(broadcastReceiver);
+            broadcastReceiver = null;
         }
     }
 
