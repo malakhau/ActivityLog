@@ -67,6 +67,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="00:00:00"
+        android:textColor="@android:color/black"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -57,18 +57,18 @@ public class StatisticsFragment extends Fragment {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent i = new Intent(getContext().getApplicationContext(), GPS_Service.class);
                 getActivity().startService(i);
                 getLocation();
+
                 startButton.setEnabled(false);
                 stopButton.setEnabled(true);
 
+                locationRecorder = new LocationRecorder();
                 timerTextView.setText("00:00:00");
                 caloriesTextView.setText("0.00");
                 velocityTextView.setText("0.00");
                 distanceTextView.setText("0.000");
-
 
                 mWeight = sharedPref.getFloat(getString(R.string.saved_width), mWeight);
                 if (mWeight == 0) {
@@ -120,7 +120,7 @@ public class StatisticsFragment extends Fragment {
                 }
             };
         }
-        getContext().registerReceiver(broadcastReceiver,new IntentFilter("location_update"));
+        getContext().registerReceiver(broadcastReceiver, new IntentFilter("location_update"));
     }
 
     private void calculateAndSetStatistics() {
@@ -129,17 +129,17 @@ public class StatisticsFragment extends Fragment {
                 locationRecorder.getAvrageVelocityInMetersPerSecund());
         float entireDistanceInKm = locationRecorder.getEntireDistanceInMeters() / 1000.0f;
         long timeInMilliSeconds = locationRecorder.calculateTimeBetweenStartAndEndInMilliSeconds();
-        float kiloCaloriesBurned = CaloriesCalculator.calculateBurnedKiloCalories(
-                velocityKmPerH, mWeight, timeInMilliSeconds);
-
         long second = (timeInMilliSeconds / 1000) % 60;
         long minute = (timeInMilliSeconds / (1000 * 60)) % 60;
-        long hour = (timeInMilliSeconds / (1000 * 60 * 60)) % 24;
+        float hourDecimal = (timeInMilliSeconds / (1000.0f * 60.0f * 60.0f)) / 24.0f;
+        int hour = (int)hourDecimal;
+        float kiloCaloriesBurned = CaloriesCalculator.calculateBurnedKiloCalories(
+                velocityKmPerH, mWeight, hourDecimal);
         String time = String.format("%02d:%02d:%02d", hour, minute, second);
         timerTextView.setText(time);
         caloriesTextView.setText(new DecimalFormat("####.##").format(kiloCaloriesBurned));
-        velocityTextView.setText(new DecimalFormat("##.##").format(velocityKmPerH));
-        distanceTextView.setText(new DecimalFormat("##.###").format(entireDistanceInKm));
+        velocityTextView.setText(new DecimalFormat("###.##").format(velocityKmPerH));
+        distanceTextView.setText(new DecimalFormat("###.###").format(entireDistanceInKm));
     }
 
 
@@ -158,7 +158,10 @@ public class StatisticsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getContext().unregisterReceiver(broadcastReceiver);
+        if(broadcastReceiver != null)
+        {
+            getContext().unregisterReceiver(broadcastReceiver);
+        }
     }
 
 }
