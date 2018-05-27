@@ -51,14 +51,17 @@ public class LocationRecorder {
         return mAvrageVelocityInMetersPerSecund;
     }
 
+    long calculateTimeBetweenStartAndEndInMilliSeconds() {
+        return timeBetweenTwoPoints(mPoints.get(0), mPoints.get(mPoints.size() - 1));
+    }
+
     void calculateAverageVelocityAndEntireDistance() {
         mEntireDistanceInMeters = 0f;
         mAvrageVelocityInMetersPerSecund = 0f;
         for (int i = 0; i + 1 < mPoints.size(); i++) {
             mEntireDistanceInMeters += distanceBetweenTwoPoints(mPoints.get(i), mPoints.get(i + 1));
         }
-        long timeBetweenStartAndEndInMilliSeconds = timeBetweenTwoPoints(
-                mPoints.get(0), mPoints.get(mPoints.size() - 1));
+        long timeBetweenStartAndEndInMilliSeconds = calculateTimeBetweenStartAndEndInMilliSeconds();
         mAvrageVelocityInMetersPerSecund = mEntireDistanceInMeters / (timeBetweenStartAndEndInMilliSeconds / 1000.0f);
     }
 
