@@ -83,4 +83,8 @@ public class LocationRecorder {
     float getAvrageVelocityInMetersPerSecund() {
         return mAvrageVelocityInMetersPerSecund;
     }
+
+    public List<Point> getPoints() {
+        return mPoints;
+    }
 }
