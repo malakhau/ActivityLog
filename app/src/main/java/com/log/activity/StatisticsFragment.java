@@ -120,9 +120,11 @@ public class StatisticsFragment extends Fragment {
                     Bundle extras = intent.getExtras();
                     float longitude = extras.getFloat("longitude");
                     float latitude = extras.getFloat("latitude");
-                    Point p = new Point(longitude, latitude, Calendar.getInstance().getTime().getTime());
-                    MainActivity.locationRecorder.addLocationAndTime(p);
-                    calculateAndSetStatistics();
+                    if (latitude != 0.0f && longitude != 0.0f) {
+                        Point p = new Point(longitude, latitude, Calendar.getInstance().getTime().getTime());
+                        MainActivity.locationRecorder.addLocationAndTime(p);
+                        calculateAndSetStatistics();
+                    }
                 }
             };
         }
