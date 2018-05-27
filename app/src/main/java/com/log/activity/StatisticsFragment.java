@@ -111,8 +111,9 @@ public class StatisticsFragment extends Fragment {
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    float longitude = (float)intent.getExtras().get("longitude");
-                    float latitude = (float)intent.getExtras().get("latitude");
+                    Bundle extras = intent.getExtras();
+                    float longitude = extras.getFloat("longitude");
+                    float latitude = extras.getFloat("latitude");
                     Point p = new Point(longitude, latitude, Calendar.getInstance().getTime().getTime());
                     locationRecorder.addLocationAndTime(p);
                     calculateAndSetStatistics();
