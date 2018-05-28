@@ -52,7 +52,10 @@ public class LocationRecorder {
     }
 
     long calculateTimeBetweenStartAndEndInMilliSeconds() {
-        return timeBetweenTwoPoints(mPoints.get(0), mPoints.get(mPoints.size() - 1));
+        if(mPoints.size() >= 2)
+            return timeBetweenTwoPoints(mPoints.get(0), mPoints.get(mPoints.size() - 1));
+        else
+            return 0;
     }
 
     void calculateAverageVelocityAndEntireDistance() {

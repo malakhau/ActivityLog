@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,10 +135,13 @@ public class MapsActivityFragment extends Fragment implements OnMapReadyCallback
         mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         List<LatLng> point = new ArrayList<>();
-        point.add(new LatLng(51.1020157,17.0381575));
-        point.add(new LatLng(51.1014539,17.038947));
-        point.add(new LatLng(51.1019203,17.0397752));
-
+        if(MainActivity.locationRecorder != null) {
+            List<com.log.activity.Point> locationPoint = MainActivity.locationRecorder.getPoints();
+            Log.i("ListPoint", String.valueOf(locationPoint.size()));
+            for (int i = 0; i < locationPoint.size() - 1; i++) {
+                point.add(new LatLng(locationPoint.get(i).y,locationPoint.get(i).x));
+            }
+        }
         drawPolyLineOnMap(point);
 
         //Initialize Google Play Services
