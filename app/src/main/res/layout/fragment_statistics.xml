@@ -39,11 +39,12 @@
         android:layout_width="wrap_content"
         android:layout_height="63dp"
         android:layout_marginBottom="64dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="Start Tracking"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/stopTracking"
-        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.877" />
@@ -53,10 +54,13 @@
         android:layout_width="wrap_content"
         android:layout_height="65dp"
         android:layout_marginBottom="64dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="Stop Tracking"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.882" />
 
@@ -169,37 +173,38 @@
 
     <Button
         android:id="@+id/todayButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="8dp"
-        android:onClick="showStatistics"
-        android:text="Today"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startTracking"
-        app:layout_constraintVertical_bias="0.51" />
-
-    <Button
-        android:id="@+id/lastMonth"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="30 days"
+        android:onClick="showStatistics"
+        android:text="Last Week"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lastMonth"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <Button
+        android:id="@+id/lastMonth"
+        android:layout_width="112dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Last Month"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.007"
-        app:layout_constraintStart_toEndOf="@+id/todayButton"
-        app:layout_constraintTop_toBottomOf="@+id/textViewKm"
-        app:layout_constraintVertical_bias="0.838" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
 
     <Button
         android:id="@+id/lastYear"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -208,9 +213,8 @@
         android:text="Last year"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toEndOf="@+id/lastMonth"
-        app:layout_constraintTop_toBottomOf="@+id/stopTracking"
-        app:layout_constraintVertical_bias="0.488" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
 
 </android.support.constraint.ConstraintLayout>

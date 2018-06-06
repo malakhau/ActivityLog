@@ -33,7 +33,10 @@
 
         <service android:name=".GPS_Service" />
 
-        <activity android:name=".PlotSteps"></activity>
+        <activity android:name=".Graph" />
+        <activity android:name=".LastMonth" />
+        <activity android:name=".LastWeek" />
+        <activity android:name=".LastYear"></activity>
     </application>
 
 </manifest>

@@ -24,7 +24,7 @@ import java.util.Calendar;
 
 public class StatisticsFragment extends Fragment {
 
-    private Button startButton, stopButton, todayButton, lastMonth, lastYear;
+    private Button startButton, stopButton, lastWeek, lastMonth, lastYear;
     private TextView timerTextView, caloriesTextView, velocityTextView, distanceTextView;
     private BroadcastReceiver broadcastReceiver;
     private SharedPreferences sharedPref;
@@ -39,7 +39,7 @@ public class StatisticsFragment extends Fragment {
 
         startButton = view.findViewById(R.id.startTracking);
         stopButton = view.findViewById(R.id.stopTracking);
-        todayButton = view.findViewById(R.id.todayButton);
+        lastWeek = view.findViewById(R.id.todayButton);
         lastMonth = view.findViewById(R.id.lastMonth);
         lastYear = view.findViewById(R.id.lastYear);
         stopButton.setEnabled(false);
@@ -100,30 +100,33 @@ public class StatisticsFragment extends Fragment {
                 }
                 stopButton.setEnabled(false);
                 startButton.setEnabled(true);
-                todayButton.setVisibility(View.VISIBLE);
+                lastWeek.setVisibility(View.VISIBLE);
 
             }
         });
 
-        todayButton.setOnClickListener(new View.OnClickListener() {
+        lastWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Intent i = new Intent(getContext().getApplicationContext(), PlotSteps.class);
-            startActivity(i);                                          }
+                Intent i = new Intent(getContext().getApplicationContext(), LastWeek.class);
+                startActivity(i);
+            }
         });
 
         lastMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext().getApplicationContext(), PlotSteps.class);
-                startActivity(i);                                          }
+                Intent i = new Intent(getContext().getApplicationContext(), LastMonth.class);
+                startActivity(i);
+            }
         });
 
         lastYear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext().getApplicationContext(), PlotSteps.class);
-                startActivity(i);                                          }
+                Intent i = new Intent(getContext().getApplicationContext(), LastYear.class);
+                startActivity(i);
+            }
         });
     }
 
