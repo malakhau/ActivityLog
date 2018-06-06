@@ -24,7 +24,7 @@ import java.util.Calendar;
 
 public class StatisticsFragment extends Fragment {
 
-    private Button startButton, stopButton, statButton;
+    private Button startButton, stopButton, todayButton, lastMonth, lastYear;
     private TextView timerTextView, caloriesTextView, velocityTextView, distanceTextView;
     private BroadcastReceiver broadcastReceiver;
     private SharedPreferences sharedPref;
@@ -39,7 +39,9 @@ public class StatisticsFragment extends Fragment {
 
         startButton = view.findViewById(R.id.startTracking);
         stopButton = view.findViewById(R.id.stopTracking);
-        statButton = view.findViewById(R.id.statistics);
+        todayButton = view.findViewById(R.id.todayButton);
+        lastMonth = view.findViewById(R.id.lastMonth);
+        lastYear = view.findViewById(R.id.lastYear);
         stopButton.setEnabled(false);
 
         timerTextView = view.findViewById(R.id.timerTextView);
@@ -98,16 +100,30 @@ public class StatisticsFragment extends Fragment {
                 }
                 stopButton.setEnabled(false);
                 startButton.setEnabled(true);
-                statButton.setVisibility(View.VISIBLE);
+                todayButton.setVisibility(View.VISIBLE);
 
             }
         });
 
-        statButton.setOnClickListener(new View.OnClickListener() {
+        todayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             Intent i = new Intent(getContext().getApplicationContext(), PlotSteps.class);
             startActivity(i);                                          }
+        });
+
+        lastMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext().getApplicationContext(), PlotSteps.class);
+                startActivity(i);                                          }
+        });
+
+        lastYear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext().getApplicationContext(), PlotSteps.class);
+                startActivity(i);                                          }
         });
     }
 

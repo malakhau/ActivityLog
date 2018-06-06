@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
