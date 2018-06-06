@@ -1,19 +1,18 @@
 package com.log.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Random;
 
 public class PlotSteps extends AppCompatActivity {
 
@@ -24,31 +23,48 @@ public class PlotSteps extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plot_steps);
 
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
-        Date todayDate = new Date();
-        String thisDate = currentDate.format(todayDate);
-        Log.i("Date", thisDate);
         backButt = findViewById(R.id.backToActivity);
-        Toast.makeText(this, "Date:" + thisDate, Toast.LENGTH_SHORT).show();
         back();
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        graph.addSeries(series);
+        drawGraph(7);
     }
 
-    public void back(){
+    private void drawGraph(int days) {
+        Calendar calendar = Calendar.getInstance();
+        DataPoint[] dates = new DataPoint[days];
+
+        Random r = new Random();
+
+        for(int i=days-1; i>=0; i--) {
+            dates[i] = new DataPoint(calendar.getTime(), (r.nextInt(10)));
+            calendar.add(Calendar.DATE, -1);
+        }
+
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dates);
+        graph.addSeries(series);
+
+        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
+        graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+
+        graph.getViewport().setMinX(dates[0].getX());
+        graph.getViewport().setMaxX(dates[days-1].getX());
+
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(0);
+
+        graph.getGridLabelRenderer().setHumanRounding(false);
+    }
+
+    private void back(){
         backButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(PlotSteps.this, MainActivity.class);
-                startActivity(i);                                          }
+                startActivity(i);
+            }
         });
     }
 }
