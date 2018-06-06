@@ -6,6 +6,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -27,6 +28,7 @@ public class Graph {
         graph.removeAllSeries();
         graph.addSeries(series);
 
+        graph.getGridLabelRenderer().resetStyles();
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(activity));
         graph.getGridLabelRenderer().setNumHorizontalLabels(3);
 
@@ -34,7 +36,6 @@ public class Graph {
         graph.getViewport().setMaxX(dates[days-1].getX());
 
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMinY(0);
 
         graph.getGridLabelRenderer().setHumanRounding(false);
@@ -52,10 +53,11 @@ public class Graph {
         }
         calendar.clear();
 
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dates);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dates);
         graph.removeAllSeries();
         graph.addSeries(series);
 
+        graph.getGridLabelRenderer().resetStyles();
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(activity));
         graph.getGridLabelRenderer().setNumHorizontalLabels(3);
 
@@ -63,7 +65,6 @@ public class Graph {
         graph.getViewport().setMaxX(dates[days-1].getX());
 
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMinY(0);
 
         graph.getGridLabelRenderer().setHumanRounding(false);
