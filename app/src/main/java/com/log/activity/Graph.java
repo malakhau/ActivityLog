@@ -31,6 +31,7 @@ public class Graph {
         graph.getGridLabelRenderer().resetStyles();
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(activity));
         graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Distance [km]");
 
         graph.getViewport().setMinX(dates[0].getX());
         graph.getViewport().setMaxX(dates[days-1].getX());
@@ -60,6 +61,7 @@ public class Graph {
         graph.getGridLabelRenderer().resetStyles();
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(activity));
         graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Weight [kg]");
 
         graph.getViewport().setMinX(dates[0].getX());
         graph.getViewport().setMaxX(dates[days-1].getX());
