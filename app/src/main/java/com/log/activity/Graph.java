@@ -48,9 +48,17 @@ public class Graph {
 
         Random r = new Random();
 
+        float weight = 56;
         for(int i=days-1; i>=0; i--) {
-            dates[i] = new DataPoint(calendar.getTime(), (r.nextInt(80 - 75) + 75));
+            dates[i] = new DataPoint(calendar.getTime(), weight);
             calendar.add(Calendar.DATE, -1);
+
+            if(r.nextFloat() >= 0.7){
+                weight -= r.nextFloat()/2;
+            }
+            else {
+                weight += r.nextFloat()/2;
+            }
         }
         calendar.clear();
 
