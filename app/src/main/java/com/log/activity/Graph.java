@@ -54,10 +54,10 @@ public class Graph {
             calendar.add(Calendar.DATE, -1);
 
             if(r.nextFloat() >= 0.7){
-                weight -= r.nextFloat()/2;
+                weight -= round(r.nextFloat()/2, 1);
             }
             else {
-                weight += r.nextFloat()/2;
+                weight += round(r.nextFloat()/2, 1);
             }
         }
         calendar.clear();
@@ -69,6 +69,7 @@ public class Graph {
         graph.getGridLabelRenderer().resetStyles();
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(activity));
         graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+        graph.getGridLabelRenderer().setNumVerticalLabels(5);
         graph.getGridLabelRenderer().setVerticalAxisTitle("Weight [kg]");
 
         graph.getViewport().setMinX(dates[0].getX());
@@ -78,5 +79,10 @@ public class Graph {
         graph.getViewport().setMinY(0);
 
         graph.getGridLabelRenderer().setHumanRounding(false);
+    }
+
+    private static double round (double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
     }
 }
